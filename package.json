@@ -70,7 +70,7 @@
       "<rootDir>/tests/setupEnv.js"
     ],
     "testMatch": [
-      "<rootDir>/*/**/*.test.ts"
+      "<rootDir>/src/**/*.test.ts"
     ],
     "clearMocks": true
   },
