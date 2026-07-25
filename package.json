@@ -38,9 +38,13 @@
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/preset-typescript": "^8.0.1",
     "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.1.1",
+    "babel-jest": "^30.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^10.7.0",
     "globals": "^17.7.0",
@@ -48,7 +52,6 @@
     "nodemon": "^3.1.4",
     "prettier": "^3.9.6",
     "supertest": "^7.0.0",
-    "ts-jest": "^29.4.12",
     "tsup": "^8.5.1",
     "typescript": "^7.0.2"
   },
