@@ -34,8 +34,9 @@ describe('buildExpensesCSV', () => {
     const csv = buildExpensesCSV([makeExpense({ notes: null })]);
     const rows = csv.split(/\r?\n/);
 
-    // Row should still have 5 comma-separated fields, last one empty
-    expect(rows[1].endsWith('""')).toBe(true);
+    expect(rows).toHaveLength(2);
+    expect(rows[1]).toBeDefined();
+    expect(rows[1]?.endsWith('""')).toBe(true);
   });
 
   it('handles multiple expenses, producing one row per expense plus header', () => {
