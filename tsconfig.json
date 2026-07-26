@@ -22,6 +22,6 @@
     "rewriteRelativeImportExtensions": true,
     "types": ["node", "jest", "jsonwebtoken"]
   },
-  "include": ["backend/**/*.ts", "mock/**/*.ts"],
+  "include": ["backend/**/*.ts"],
   "exclude": ["node_modules", "dist", "tests"]
 }
