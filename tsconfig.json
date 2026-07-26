@@ -8,6 +8,7 @@
     "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -18,8 +19,9 @@
     "exactOptionalPropertyTypes": true,     // { x?: string } ≠ { x: undefined }
     "noImplicitReturns": true,              // Missing return catches
     "noFallthroughCasesInSwitch": true,     // Missing break catches
-    "rewriteRelativeImportExtensions": true
+    "rewriteRelativeImportExtensions": true,
+    "types": ["node", "jest", "jsonwebtoken"]
   },
   "include": ["src/**/*.ts", "mock/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "tests"]
 }
