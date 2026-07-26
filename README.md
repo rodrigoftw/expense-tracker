@@ -130,7 +130,7 @@ Optional query params: `year` (e.g. `2026`), `category`.
 # Register
 curl -X POST http://localhost:5000/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"name":"Rodrigo","email":"rodrigo@example.com","password":"secret123"}'
+  -d '{"name":"John Doe","email":"johndoe@example.com","password":"secret123"}'
 
 # Save the returned token, then create an expense
 curl -X POST http://localhost:5000/api/expenses \
@@ -155,25 +155,25 @@ curl "http://localhost:5000/api/expenses/export/csv" \
 ```
 expense-tracker/
 ├── config/
-│   └── db.js              # Sequelize/PostgreSQL connection
+│   └── db.ts              # Sequelize/PostgreSQL connection
 ├── controllers/
-│   ├── authController.js
-│   └── expenseController.js
+│   ├── authController.ts
+│   └── expenseController.ts
 ├── middleware/
-│   ├── auth.js             # JWT verification
-│   └── errorHandler.js
+│   ├── auth.ts             # JWT verification
+│   └── errorHandler.ts
 ├── models/
-│   ├── User.js
-│   ├── Expense.js
-│   └── index.js             # associations
+│   ├── User.ts
+│   ├── Expense.ts
+│   └── index.ts             # associations
 ├── routes/
-│   ├── authRoutes.js
-│   └── expenseRoutes.js
+│   ├── authRoutes.ts
+│   └── expenseRoutes.ts
 ├── scripts/
-│   └── migrate.js
+│   └── migrate.ts
 ├── utils/
-│   └── exportUtils.js       # CSV/PDF generation
-├── server.js
+│   └── exportUtils.ts       # CSV/PDF generation
+├── server.ts
 ├── package.json
 └── .env.example
 ```
@@ -181,7 +181,7 @@ expense-tracker/
 ## Notes on design decisions
 - **Sequelize + PostgreSQL**: gives you real relational integrity (foreign keys, cascading deletes) between users and expenses, plus painless `SUM`/`GROUP BY` queries for the summary endpoint.
 - **UUID primary keys**: avoids leaking sequential IDs and makes it trivial to merge data later if needed.
-- **Filtering is centralized** in `buildFilterWhere()` inside `expenseController.js`, so the list endpoint, CSV export, and PDF export all honor the exact same filters.
+- **Filtering is centralized** in `buildFilterWhere()` inside `expenseController.ts`, so the list endpoint, CSV export, and PDF export all honor the exact same filters.
 - **Passwords** are hashed with bcrypt in a model hook, so `User.create()`/`user.update()` always store hashed passwords — no controller can accidentally save one in plaintext.
 - Auto-sync (`sequelize.sync({ alter: true })`) is convenient for development but for a real production deployment, run `npm run migrate` explicitly (or introduce `sequelize-cli` migrations) instead of syncing on every boot.
 
@@ -196,11 +196,11 @@ npm run test:watch # watch mode
 ```
 
 Coverage:
-- **`tests/integration/auth.routes.test.js`** — register/login validation, duplicate-email handling, wrong-password handling, unauthenticated `/me`
-- **`tests/integration/expense.routes.test.js`** — full CRUD, filter query params (category/amount/date range → correct Sequelize `where` clause), pagination, monthly summary shape, CSV export, and auth rejection
-- **`tests/unit/authMiddleware.test.js`** — valid/missing/malformed/expired tokens, deleted-user edge case
-- **`tests/unit/exportUtils.test.js`** — CSV header/row formatting, missing notes, multiple rows, empty list
-- **`tests/unit/models.test.js`** — `User.comparePassword`, `toJSON` password stripping, `Expense` category list and validation config
+- **`tests/integration/auth.routes.test.ts`** — register/login validation, duplicate-email handling, wrong-password handling, unauthenticated `/me`
+- **`tests/integration/expense.routes.test.ts`** — full CRUD, filter query params (category/amount/date range → correct Sequelize `where` clause), pagination, monthly summary shape, CSV export, and auth rejection
+- **`tests/unit/authMiddleware.test.ts`** — valid/missing/malformed/expired tokens, deleted-user edge case
+- **`tests/unit/exportUtils.test.ts`** — CSV header/row formatting, missing notes, multiple rows, empty list
+- **`tests/unit/models.test.ts`** — `User.comparePassword`, `toJSON` password stripping, `Expense` category list and validation config
 
 Since the model layer is mocked in the route tests, they verify **routing, validation, auth, and controller logic** rather than actual SQL behavior. If you want true integration coverage against a real database, point `DATABASE_URL` at a disposable test database and add a separate suite that skips the model mocks — that's a reasonable next step (see below).
 

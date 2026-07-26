@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
     "lib": ["ES2022"],
     "outDir": "./dist",
     "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -18,8 +19,9 @@
     "exactOptionalPropertyTypes": true,     // { x?: string } ≠ { x: undefined }
     "noImplicitReturns": true,              // Missing return catches
     "noFallthroughCasesInSwitch": true,     // Missing break catches
-    "rewriteRelativeImportExtensions": true
+    "rewriteRelativeImportExtensions": true,
+    "types": ["node", "jest", "jsonwebtoken"]
   },
-  "include": ["src/**/*.ts", "mock/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["backend/**/*.ts"],
+  "exclude": ["node_modules", "dist", "tests"]
 }
